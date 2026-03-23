@@ -1,0 +1,33 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Helper Functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    function isAdmin() {
+      return isAuthenticated() && 
+        request.auth.token.email == "developershuvo144@gmail.com";
+    }
+
+    // Allow read access to all documents
+    match /{document=**} {
+      allow read: if true;
+    }
+
+    // Allow write access to all documents for the admin
+    match /{document=**} {
+      allow write: if isAdmin();
+    }
+
+    // Specific rule for visitor count increment (optional, but let's keep it simple for now)
+    // Since we are using updateDoc on the client, isAdmin() would fail for normal users.
+    // We should allow anyone to update the visitorCount field specifically.
+    match /settings/main {
+      allow update: if request.resource.data.diff(resource.data).affectedKeys().hasOnly(['visitorCount'])
+                    && request.resource.data.visitorCount == resource.data.visitorCount + 1;
+    }
+  }
+}

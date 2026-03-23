@@ -1,0 +1,176 @@
+{
+  "entities": {
+    "Project": {
+      "title": "Project",
+      "description": "A portfolio project",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string", "description": "Project title" },
+        "description": { "type": "string", "description": "Project description" },
+        "image": { "type": "string", "description": "Project image URL" },
+        "githubUrl": { "type": "string", "description": "GitHub repository URL" },
+        "liveUrl": { "type": "string", "description": "Live demo URL" },
+        "category": { "type": "string", "enum": ["VBA", "Bot", "ERP", "Web"], "description": "Project category" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Creation timestamp" }
+      },
+      "required": ["title", "description", "category"]
+    },
+    "Profile": {
+      "title": "Profile",
+      "description": "User profile information",
+      "type": "object",
+      "properties": {
+        "fullName": { "type": "string", "description": "Full name" },
+        "tagline": { "type": "string", "description": "Professional tagline" },
+        "bio": { "type": "string", "description": "Short biography" },
+        "aboutMe": { "type": "string", "description": "Detailed about me section" },
+        "address": { "type": "string", "description": "Location" },
+        "email": { "type": "string", "description": "Contact email" },
+        "phone": { "type": "string", "description": "Contact phone" },
+        "profileImage": { "type": "string", "description": "Profile image URL" },
+        "githubUrl": { "type": "string", "description": "GitHub URL" },
+        "linkedinUrl": { "type": "string", "description": "LinkedIn URL" },
+        "facebookUrl": { "type": "string", "description": "Facebook URL" },
+        "cvUrl": { "type": "string", "description": "URL to the latest CV" }
+      },
+      "required": ["fullName", "email"]
+    },
+    "Skill": {
+      "title": "Skill",
+      "description": "Technical skill",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "description": "Skill name" },
+        "level": { "type": "number", "description": "Skill level (1-100)" },
+        "category": { "type": "string", "description": "Skill category" }
+      },
+      "required": ["name", "level"]
+    },
+    "Service": {
+      "title": "Service",
+      "description": "A service offered",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string", "description": "Service title" },
+        "description": { "type": "string", "description": "Service description" },
+        "icon": { "type": "string", "description": "Lucide icon name" }
+      },
+      "required": ["title", "description"]
+    },
+    "Experience": {
+      "title": "Experience",
+      "description": "Professional experience",
+      "type": "object",
+      "properties": {
+        "company": { "type": "string", "description": "Company name" },
+        "position": { "type": "string", "description": "Job position" },
+        "period": { "type": "string", "description": "Time period" },
+        "description": { "type": "string", "description": "Job description" }
+      },
+      "required": ["company", "position", "period"]
+    },
+    "Testimonial": {
+      "title": "Testimonial",
+      "description": "Client testimonial",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "description": "Client name" },
+        "role": { "type": "string", "description": "Client role" },
+        "content": { "type": "string", "description": "Testimonial content" },
+        "avatar": { "type": "string", "description": "Client avatar URL" }
+      },
+      "required": ["name", "role", "content"]
+    },
+    "Stat": {
+      "title": "Stat",
+      "description": "Key performance indicator or achievement",
+      "type": "object",
+      "properties": {
+        "label": { "type": "string", "description": "Stat label" },
+        "value": { "type": "string", "description": "Stat value" },
+        "icon": { "type": "string", "description": "Lucide icon name" }
+      },
+      "required": ["label", "value"]
+    },
+    "FAQ": {
+      "title": "FAQ",
+      "description": "Frequently asked question",
+      "type": "object",
+      "properties": {
+        "question": { "type": "string", "description": "The question" },
+        "answer": { "type": "string", "description": "The answer" }
+      },
+      "required": ["question", "answer"]
+    },
+    "Announcement": {
+      "title": "Announcement",
+      "description": "Top bar announcement",
+      "type": "object",
+      "properties": {
+        "text": { "type": "string", "description": "Announcement text" },
+        "isActive": { "type": "boolean", "description": "Whether to show the announcement" },
+        "link": { "type": "string", "description": "Optional link" }
+      },
+      "required": ["text", "isActive"]
+    },
+    "SiteSettings": {
+      "title": "SiteSettings",
+      "description": "Global site configuration and feature flags",
+      "type": "object",
+      "properties": {
+        "accentColor": { "type": "string", "description": "Primary accent color (hex or tailwind class)" },
+        "showTerminal": { "type": "boolean", "description": "Toggle terminal visibility" },
+        "showChatBot": { "type": "boolean", "description": "Toggle chatbot visibility" },
+        "showStats": { "type": "boolean", "description": "Toggle stats section visibility" },
+        "showTestimonials": { "type": "boolean", "description": "Toggle testimonials visibility" },
+        "showFAQ": { "type": "boolean", "description": "Toggle FAQ visibility" },
+        "enableCustomCursor": { "type": "boolean", "description": "Enable custom interactive cursor" },
+        "enableNoiseEffect": { "type": "boolean", "description": "Enable background noise/grain effect" },
+        "visitorCount": { "type": "number", "description": "Total site visitors" }
+      },
+      "required": ["accentColor", "showTerminal", "showChatBot"]
+    }
+  },
+  "firestore": {
+    "/projects/{projectId}": {
+      "schema": "Project",
+      "description": "Collection of portfolio projects"
+    },
+    "/profile/main": {
+      "schema": "Profile",
+      "description": "Main profile document"
+    },
+    "/skills/{skillId}": {
+      "schema": "Skill",
+      "description": "Technical skills collection"
+    },
+    "/services/{serviceId}": {
+      "schema": "Service",
+      "description": "Offered services collection"
+    },
+    "/experiences/{experienceId}": {
+      "schema": "Experience",
+      "description": "Work experiences collection"
+    },
+    "/testimonials/{testimonialId}": {
+      "schema": "Testimonial",
+      "description": "Client testimonials collection"
+    },
+    "/stats/{statId}": {
+      "schema": "Stat",
+      "description": "Achievements stats collection"
+    },
+    "/faqs/{faqId}": {
+      "schema": "FAQ",
+      "description": "Frequently asked questions collection"
+    },
+    "/announcement/main": {
+      "schema": "Announcement",
+      "description": "Main announcement document"
+    },
+    "/settings/main": {
+      "schema": "SiteSettings",
+      "description": "Main site settings document"
+    }
+  }
+}
